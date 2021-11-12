@@ -147,13 +147,14 @@ if %repo% == exit goto start
 
 cd %testFolder%
 
+rd /S /Q studentSolution
 git clone %repo% studentSolution
 if %errorlevel%==0 goto cloneSuccess
 rd /S /Q studentSolution
 goto falseGit
 
 :cloneSuccess
-rd /S /Q assignment/src
+rd /S /Q assignment
 mkdir assignment
 xcopy /E studentSolution/src assignment
 rd /S /Q studentSolution
