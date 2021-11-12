@@ -188,7 +188,8 @@ if errorlevel 0 goto update
 cls
 call :drawHeader
 echo  Updating MercuryTool ...
-::git pull 
+git fetch --all
+git reset --hard origin/main
 call :drawMessage "MercuryTool updated ...
 pause
 goto start
