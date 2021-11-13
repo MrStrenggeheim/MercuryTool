@@ -1,7 +1,7 @@
 ::mode con cols=50 lines=20
 
 @echo off
-setlocal
+setlocal enabledelayedexpansion
 title Mercury
 goto setup
 
@@ -206,7 +206,10 @@ if exist studentSolution (
 goto falseGit
 
 :cloneSuccess
-rd /S /Q assignment
+cd %testFolder%
+if exist assignment (
+	rd /S /Q assignment
+)
 mkdir assignment
 xcopy /E studentSolution/src assignment
 rd /S /Q studentSolution
@@ -258,7 +261,7 @@ call :drawHeader
 echo  Updating MercuryTool ...
 git fetch --all
 git reset --hard origin/main
-call :drawMessage "MercuryTool updated ...
+call :drawMessage "MercuryTool updated ..."
 pause
 goto start
 :: ------------------------------------------------- Update
