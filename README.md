@@ -10,7 +10,9 @@ Here is a small batch-skript helping you cloning and testing your Artemis-Submis
 
 ## Notice
 - The submission is cloned into a `test-folder\assignment\src` and the tests are run with `mvn clean test` in `test-folder\behavior`.
-- You can even open the assignment-folder in your desired IDE like Eclipse as an Java-Project (create new java-project > disable: use default location > choose assignment folder) to browse, edit and run the submission-code. And if you use the tool to update the students solution to a new one you just have to refresh the package-explorer in your IDE to see the new files. (Normally you don't even have to close the file tabs)
+- You can even open the assignment-folder in your desired IDE like Eclipse as an Java-Project (create new java-project > disable: use default location > choose assignment folder) to browse, edit and run the submission-code. 
+  
+    And if you use the tool to update the students solution to a new one you just have to refresh the package-explorer in your IDE to see the new files. (Normally you don't even have to close the file tabs)
 
 ## Contribute
 Use, test and report. 

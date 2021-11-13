@@ -1,3 +1,5 @@
+:: Author: Florian Hunecke
+
 ::mode con cols=50 lines=20
 
 @echo off
