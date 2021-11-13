@@ -1,5 +1,7 @@
 ::mode con cols=50 lines=20
+
 @echo off
+setlocal
 title Mercury
 goto setup
 
@@ -41,7 +43,6 @@ goto start
 
 :start
 title Mercury
-
 
 if not exist %testFolder% goto noDirTitle
 FOR %%i IN ("%testFolder%") DO (
@@ -118,13 +119,26 @@ if errorlevel 0 goto start
 :selectTestFolder
 cls 
 call :drawHeader
-echo  Please enter the location of the test-folder:
-REM echo    Type 'remove' to forget the current test-folder.
+
+echo Please enter the absolute path to the test-folder:
+echo    Type 'pick' to open a file-picker.
 echo    Type 'cancel' or nothing to go back.
 echo. 
 set newTestFolder=cancel
 set /p "newTestFolder=->"
 if "%newTestFolder%"=="cancel" goto start
+if not "%newTestFolder%"=="pick" goto applyFolder
+
+setlocal
+setlocal enabledelayedexpansion
+set "psCommand="(new-object -COM 'Shell.Application')^
+.BrowseForFolder(0,'Please choose a folder.',0,17).self.path""
+
+for /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "newTestFolder=%%I"
+
+
+endlocal
+REM echo    Type 'remove' to forget the current test-folder.
 REM if not "%newTestFolder%"=="remove" goto :applyFolder
 REM set "testFolder=nothing"
 REM echo nothing>settings.mcy
@@ -265,3 +279,5 @@ timeout >NUL /t 1
 exit
 
 goto start
+
+
