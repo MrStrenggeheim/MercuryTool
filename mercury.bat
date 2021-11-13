@@ -132,7 +132,7 @@ if not "%newTestFolder%"=="pick" goto applyFolder
 setlocal
 setlocal enabledelayedexpansion
 set "psCommand="(new-object -COM 'Shell.Application')^
-.BrowseForFolder(0,'Please choose a folder.',0,17).self.path""
+.BrowseForFolder(0,'Please choose a test-folder.',0,0).self.path""
 
 for /f "usebackq delims=" %%I in (`powershell %psCommand%`) do set "newTestFolder=%%I"
 
