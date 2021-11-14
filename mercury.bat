@@ -30,14 +30,16 @@ EXIT /B 0
 
 :setup
 :: if settings -> load test folder
-if exist settings.mcy (
-	set /p testFolder=<settings.mcy
+:: init settings file-picker
+set "settingsFile=%~p0settings.mcy"
+if exist "%settingsFile%" (
+	set /p testFolder=<"%settingsFile%"
 	REM (
 	REM set /p testFolder=
 	REM )<settings.mcy
 ) else ( 
 	:: else -> create default one
-	echo testFolder\>settings.mcy
+	echo testFolder\>"%settingsFile%"
 	set testFolder=testFolder\
 )
 goto start
@@ -46,7 +48,7 @@ goto start
 :start
 title Mercury
 
-if not exist %testFolder% goto noDirTitle
+if not exist "%testFolder%" goto noDirTitle
 FOR %%i IN ("%testFolder%") DO (
 set dirName=%%~ni
 )
@@ -54,8 +56,8 @@ title Mercury - %dirName%
 
 :noDirTitle
 :: decide which home screen to launch
-if exist %testFolder% (
-	cd %testFolder%
+if exist "%testFolder%" (
+	cd "%testFolder%"
 	goto home
 ) else (
 	goto homeSelectFolder
@@ -146,14 +148,14 @@ REM set "testFolder=nothing"
 REM echo nothing>settings.mcy
 REM goto start
 :applyFolder
-if exist %newTestFolder% (
+if exist "%newTestFolder%" (
 	(
 		echo %newTestFolder%
-	)>settings.mcy
+	)>"%settingsFile%"
 	echo.
 	call :drawMessage "Test-folder successfully selected ..."
 	echo.
-	set testFolder=%newTestFolder%
+	set "testFolder=%newTestFolder%"
 	pause
 	goto start
 ) else (
@@ -173,7 +175,7 @@ cls
 call :drawHeader
 echo  Running tests ...
 echo. 
-cd %testFolder%\behavior
+cd "%testFolder%\behavior"
 call mvn clean test
 cd ..
 echo.
@@ -195,7 +197,7 @@ set /p repo="->"
 if %repo%==cancel goto start
 if %repo%==remove goto removeStudentSolution
 
-cd %testFolder%
+cd "%testFolder%"
 
 if exist studentSolution (
 	rd /S /Q studentSolution
@@ -229,7 +231,7 @@ goto start
 
 
 :removeStudentSolution
-cd %testFolder%
+cd "%testFolder%"
 if exist studentSolution (
 	rd /S /Q studentSolution
 )
