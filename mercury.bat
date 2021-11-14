@@ -250,6 +250,11 @@ goto start
 :update
 cls
 call :drawHeader
+REM echo  The newest version is
+REM git rev-parse --short origin
+REM echo  Your version is
+REM git rev-parse --short head
+REM echo.
 echo  Are you sure, you want to update MercuryTool?
 echo  (This will replace all Files in this directory)
 echo.
