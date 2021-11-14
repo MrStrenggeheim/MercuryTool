@@ -268,7 +268,7 @@ if errorlevel 0 goto update
 cls
 call :drawHeader
 echo  Updating MercuryTool ...
-cd %~p1
+cd %~p0
 git fetch --all
 git reset --hard origin/main
 call :drawMessage "MercuryTool updated ..."
