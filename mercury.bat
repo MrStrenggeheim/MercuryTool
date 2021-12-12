@@ -31,7 +31,11 @@ EXIT /B 0
 :setup
 :: if settings -> load test folder
 :: init settings file-picker
-set "settingsFile=%~p0settings.mcy"
+if not exist "C:\Users\%username%\AppData\Roaming\MercuryTool\" (
+	mkdir "C:\Users\%username%\AppData\Roaming\MercuryTool"
+)
+set "settingsFile=C:\Users\%username%\AppData\Roaming\MercuryTool\settings.mcy"
+:: set "settingsFile=%~p0settings.mcy"
 if exist "%settingsFile%" (
 	set /p testFolder=<"%settingsFile%"
 	REM (
@@ -175,9 +179,14 @@ cls
 call :drawHeader
 echo  Running tests ...
 echo. 
-cd "%testFolder%\behavior"
-call mvn clean test
-cd ..
+if exist "%testFolder%\behavior" (
+	cd "%testFolder%\behavior"
+	call mvn clean test
+	cd ..
+) else (
+	call mvn clean test
+)
+
 echo.
 call :drawMessage "Press Enter to go back ..."
 echo.
